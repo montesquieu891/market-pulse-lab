@@ -1,0 +1,75 @@
+RESUMEN DEL PROYECTO
+
+Objetivo del proyecto
+Market Pulse Lab se desarrollo como un proyecto de ingenieria de preprocesamiento financiero, no como una competencia de modelado.
+El objetivo fue integrar datos de precios, noticias y variables macro para construir una matriz de features robusta para predecir volatilidad futura de corto plazo, con control estricto de leakage temporal.
+
+Como se trabajo
+El trabajo se ejecuto en pipeline por etapas:
+
+Ingestion
+
+Precios, noticias y macro cargados y normalizados a UTC.
+Salida intermedia en Parquet.
+Regla de inmutabilidad de datos crudos respetada.
+Diagnostico y calidad de datos
+
+Identificacion de problemas de calidad y tratamiento propuesto.
+Hallazgos clave:
+100.00% de nulos en news.article, con fallback a title.
+0.36% de filas con volumen cero en precios.
+709 duplicados exactos en noticias.
+1928 tickers con mas de 20% de dias faltantes.
+Features de series temporales
+
+Log returns, volatilidad realizada rolling, lags, rolling stats, RSI y Bollinger.
+Validaciones de estacionariedad en AAPL:
+p-value close: 0.981798
+p-value log_return: 0.000000
+Confirmacion esperada:
+close no estacionaria
+log_return estacionaria
+NLP y sentimiento
+
+Limpieza textual, TF-IDF train-only, agregacion diaria por ticker.
+En esta corrida se uso fallback de sentimiento:
+modelo: lexicon_fallback
+text_source article ratio: 0.000
+text_source title ratio: 1.000
+Volumen procesado:
+311619 filas de noticias
+178160 filas diarias agregadas
+Integracion y validacion
+
+Matriz final integrada y validada con expectativas de calidad.
+Resultado de validacion: PASS en nivel estricto.
+Matriz de features:
+rows: 4178400
+columns: 38
+feature_count: 33
+train_rows: 2811067
+rows_without_news_pct: 0.964701
+Baseline modeling
+
+Split temporal estricto y scaler fit solo en train.
+Resultados:
+XGBoost (price + sentiment): val MAE 0.160300 | test MAE 0.159764
+Linear (price + sentiment): val MAE 0.167450 | test MAE 0.175475
+Linear (price only): val MAE 0.167452 | test MAE 0.175524
+Resultados obtenidos
+Pipeline completo funcional y reproducible end-to-end.
+Controles anti-leakage implementados y verificados.
+Validacion de calidad superada en modo estricto.
+Señal de mejora por features de sentimiento frente al baseline lineal price-only, aunque pequeña.
+Mejor desempeño general con modelo no lineal (XGBoost).
+Conclusiones
+El valor principal del proyecto esta en la calidad del preprocesamiento y la integracion temporalmente correcta de fuentes heterogeneas.
+El control de leakage y la validacion formal permiten usar esta base en escenarios reales de riesgo/forecasting.
+La mejora por sentimiento existe, pero en este entorno esta limitada por la disponibilidad de texto completo de articulos.
+El proyecto queda listo como pieza de portfolio para demostrar criterio de datos, no solo entrenamiento de modelos.
+Limitaciones y siguientes pasos
+Re-ejecutar NLP con stack completo FinBERT y SBERT para sustituir fallback de sentimiento.
+Mejorar cobertura de articulo completo para aumentar calidad semantica.
+Agregar comparativas de robustez por ventana temporal y por sector.
+Publicar tablero de resultados resumido para recruiters con metricas clave y trazabilidad de artefactos.
+Si quieres, en cuanto tenga herramienta de escritura habilitada te lo inserto yo directamente en un archivo dedicado y lo dejo commiteado.
