@@ -30,19 +30,19 @@ runs without errors inside the activated venv.
 
 ### Checkpoints
 
-- [ ] `python --version` returns 3.10 or higher
-- [ ] `.venv/` created in project root via `python -m venv .venv`
-- [ ] venv activates without errors (PowerShell execution policy set if needed)
-- [ ] `torch` installed via CPU wheel: `pip install torch --index-url https://download.pytorch.org/whl/cpu`
-- [ ] All `requirements.txt` packages installed without conflicts
-- [ ] `python -m spacy download en_core_web_sm` completed
-- [ ] VS Code interpreter set to `.venv\Scripts\python.exe`
-- [ ] `.vscode/settings.json` created with formatter and Copilot config
-- [ ] `.env` created with `PYTHONPATH=.`
-- [ ] `kaggle.json` placed in `~/.kaggle/` and permissions set
-- [ ] All folders from layout in `CLAUDE.md` exist on disk
-- [ ] `python -c "import pandas; import torch; import transformers; print('OK')"` → prints OK
-- [ ] First commit pushed: `chore: initial project scaffold`
+- [x] `python --version` returns 3.10 or higher
+- [x] `.venv/` created in project root via `python -m venv .venv`
+- [x] venv activates without errors (PowerShell execution policy set if needed)
+- [x] `torch` installed via CPU wheel: `pip install torch --index-url https://download.pytorch.org/whl/cpu`
+- [x] All `requirements.txt` packages installed without conflicts
+- [x] `python -m spacy download en_core_web_sm` completed
+- [x] VS Code interpreter set to `.venv\Scripts\python.exe`
+- [x] `.vscode/settings.json` created with formatter and Copilot config
+- [x] `.env` created with `PYTHONPATH=.`
+- [x] `kaggle.json` placed in `~/.kaggle/` and permissions set
+- [x] All folders from layout in `CLAUDE.md` exist on disk
+- [x] `python -c "import pandas; import torch; import transformers; print('OK')"` → prints OK
+- [x] First commit pushed: `chore: initial project scaffold`
 
 **Agent note:** If torch installation fails, try the CPU wheel URL explicitly.
 Do not proceed to Phase 1 until the final import check passes.
