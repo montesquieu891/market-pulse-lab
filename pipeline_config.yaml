@@ -1,0 +1,109 @@
+# pipeline_config.yaml
+# Single source of truth for all pipeline parameters.
+# Referenced by all src/ modules via load_config().
+
+project:
+  name: market-pulse-lab
+  version: "0.1.0"
+
+# ── Ticker Universe ──────────────────────────────────────────────────────────
+tickers:
+  universe_file: datasets/sp500_tickers.txt   # one ticker per line
+  # Focused subset for development — comment out to use full universe
+  dev_subset:
+    - AAPL
+    - MSFT
+    - GOOGL
+    - AMZN
+    - META
+    - JPM
+    - BAC
+    - GS
+    - TSLA
+    - NVDA
+
+# ── Date Ranges ──────────────────────────────────────────────────────────────
+dates:
+  start: "2015-01-01"
+  end:   "2017-11-10"
+  # Temporal split constrained to available price coverage in this workspace.
+  train_end:      "2016-12-31"
+  validation_end: "2017-06-30"
+  test_end:       "2017-11-10"
+
+# ── Data Paths ───────────────────────────────────────────────────────────────
+paths:
+  raw_prices_dir:      datasets/Data/Stocks/
+  raw_news:            datasets/raw_analyst_ratings.csv
+  interim_prices:      datasets/interim/prices_combined.parquet
+  interim_news:        datasets/interim/news_cleaned.parquet
+  macro_indicators:    datasets/external/macro_indicators.parquet
+  price_features:      datasets/features/price_features.parquet
+  news_features:       datasets/features/news_features.parquet
+  feature_matrix:      datasets/features/feature_matrix.parquet
+  pipeline_model:      models/preprocessing_pipeline.joblib
+
+# ── Time Series Features ─────────────────────────────────────────────────────
+timeseries:
+  realized_vol_windows: [5, 10, 20]        # days
+  lag_periods: [1, 2, 3, 5, 10]            # days
+  rolling_windows: [5, 10, 20, 60]         # days
+  fourier_periods: [5, 10, 21, 63, 252]    # trading days (week, 2w, month, Q, year)
+
+# ── NLP ───────────────────────────────────────────────────────────────────────
+nlp:
+  finbert_model:      ProsusAI/finbert
+  finbert_cache_dir:  models/finbert_cache/
+  sbert_model:        sentence-transformers/all-MiniLM-L6-v2
+  sbert_cache_dir:    models/sbert_cache/
+  max_tokens:         512
+  batch_size:         32
+  tfidf_max_features: 5000
+  tfidf_ngram_range:  [1, 2]
+  # Domains-specific stopwords added to NLTK defaults
+  extra_stopwords:
+    - said
+    - says
+    - year
+    - quarter
+    - company
+    - share
+    - shares
+    - stock
+    - market
+
+# ── Macro Indicators (FRED) ──────────────────────────────────────────────────
+macro:
+  fred_series:
+    VIX:      "VIXCLS"       # CBOE Volatility Index
+    treasury: "DGS10"        # 10-Year Treasury Rate
+    unrate:   "UNRATE"       # Unemployment Rate
+    cpi:      "CPIAUCSL"     # CPI
+
+# ── Feature Engineering ───────────────────────────────────────────────────────
+features:
+  # Minimum lag applied to ALL features (anti-leakage)
+  min_lag_days: 1
+  # Target variable
+  target: realized_vol_5d_forward
+  # Drop features with more than this % missing after join
+  max_missing_pct: 0.5
+
+# ── Diagnostic EDA ───────────────────────────────────────────────────────────
+eda:
+  # ydata-profiling can be memory-intensive on full data; sample deterministically if needed.
+  profile_max_rows: 200000
+
+# ── Validation Thresholds ────────────────────────────────────────────────────
+validation:
+  default_level:      strict    # basic: fast contract checks, strict: includes business-rule checks
+  min_rows_prices:    1000000   # fail if prices < 1M rows after load
+  min_rows_news:      300000    # fail if news < 300k rows after load (workspace source: raw_analyst_ratings.csv ~311k rows)
+  max_missing_close:  0.01      # fail if >1% of close prices are null
+  min_tickers:        100       # fail if fewer tickers than this
+
+# ── Logging ──────────────────────────────────────────────────────────────────
+logging:
+  level: INFO
+  format: "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
+  file: reports/pipeline.log
