@@ -1,4 +1,4 @@
-# CLAUDE.md — Market Pulse Lab
+# CLAUDE.md — Case Context: Market Pulse Lab
 > Context file for AI agents (GitHub Copilot, Claude, Cursor).
 > Read this entire file before writing any code or suggesting any changes.
 
