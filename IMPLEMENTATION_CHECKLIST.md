@@ -270,7 +270,7 @@ portfolio.
 - [x] `pytest tests/ -v` passes with no failures
 - [x] `.gitignore` confirms no data files, no model weights, no credentials committed
 - [ ] GitHub repo set to public
-- [ ] `git tag v1.0.0` applied to final commit
+- [x] `git tag v1.0.0` applied to final commit
 
 Phase 6 status note: README was aligned to the current repository structure and execution flow.
 `src/` function signatures/docstrings were audited via AST checks and confirmed compliant.
@@ -279,8 +279,8 @@ A test suite now exists (`tests/test_dates.py`) and tests pass using the project
 Unexpected ETF raw-file additions were reviewed (`dirt.us.txt`, `div.us.txt`, `djci.us.txt`):
 headers valid, parse errors 0, dates sorted, duplicates 0, OHLC consistency OK, no invalid close/volume values.
 No pipeline impact was detected because price ingestion is configured to read `datasets/Data/Stocks/`.
-Remaining items are release/publication steps: fresh-kernel notebook reruns, setting the GitHub repository
-to public, and applying the `v1.0.0` tag on the final release commit.
+Remaining items are release/publication steps: fresh-kernel notebook reruns and setting the GitHub repository
+to public.
 
 **Agent note:** The modeling notebook is intentionally minimal. The goal is
 to validate that the features are useful, not to win a Kaggle competition.
