@@ -228,7 +228,6 @@ Great Expectations validations. Pipeline serialized as `.joblib`.
 - [x] All GE expectations pass → `reports/data_validation_report.html` generated
 - [x] `datasets/features/feature_matrix.parquet` saved
 - [x] `sklearn` Pipeline serialized: `models/preprocessing_pipeline.joblib`
-- [ ] `run_pipeline.py` runs full pipeline end-to-end without errors
 - [x] `run_pipeline.py` runs full pipeline end-to-end without errors
 - [x] Notebook committed: `feat: integration pipeline and validation`
 
@@ -256,22 +255,32 @@ portfolio.
 
 ### Checkpoints
 
-- [ ] `notebooks/06_modeling_baseline.ipynb` runs top-to-bottom
-- [ ] Temporal train/val/test split applied (using `src/utils/dates.py`)
-- [ ] `StandardScaler` fit on train only, applied to all splits
-- [ ] Baseline 1: `LinearRegression` on price features only — MAE recorded
-- [ ] Baseline 2: `LinearRegression` on price + sentiment — MAE recorded
-- [ ] Baseline 3: `XGBoostRegressor` — MAE recorded
-- [ ] Results table shows whether sentiment features add signal
-- [ ] Feature importance plot saved for top-20 features
-- [ ] Results table added to `README.md`
-- [ ] `README.md` complete: setup instructions, data sources, design decisions
+- [x] `notebooks/06_modeling_baseline.ipynb` runs top-to-bottom
+- [x] Temporal train/val/test split applied (using `src/utils/dates.py`)
+- [x] `StandardScaler` fit on train only, applied to all splits
+- [x] Baseline 1: `LinearRegression` on price features only — MAE recorded
+- [x] Baseline 2: `LinearRegression` on price + sentiment — MAE recorded
+- [x] Baseline 3: `XGBoostRegressor` — MAE recorded
+- [x] Results table shows whether sentiment features add signal
+- [x] Feature importance plot saved for top-20 features
+- [x] Results table added to `README.md`
+- [x] `README.md` complete: setup instructions, data sources, design decisions
 - [ ] All notebooks run top-to-bottom on a fresh kernel without errors
-- [ ] All `src/` functions have type hints and Google-style docstrings
-- [ ] `pytest tests/ -v` passes with no failures
-- [ ] `.gitignore` confirms no data files, no model weights, no credentials committed
+- [x] All `src/` functions have type hints and Google-style docstrings
+- [x] `pytest tests/ -v` passes with no failures
+- [x] `.gitignore` confirms no data files, no model weights, no credentials committed
 - [ ] GitHub repo set to public
 - [ ] `git tag v1.0.0` applied to final commit
+
+Phase 6 status note: README was aligned to the current repository structure and execution flow.
+`src/` function signatures/docstrings were audited via AST checks and confirmed compliant.
+A test suite now exists (`tests/test_dates.py`) and tests pass using the project interpreter
+(`.venv/Scripts/python.exe -m pytest tests/ -v`, 4 passed).
+Unexpected ETF raw-file additions were reviewed (`dirt.us.txt`, `div.us.txt`, `djci.us.txt`):
+headers valid, parse errors 0, dates sorted, duplicates 0, OHLC consistency OK, no invalid close/volume values.
+No pipeline impact was detected because price ingestion is configured to read `datasets/Data/Stocks/`.
+Remaining items are release/publication steps: fresh-kernel notebook reruns, setting the GitHub repository
+to public, and applying the `v1.0.0` tag on the final release commit.
 
 **Agent note:** The modeling notebook is intentionally minimal. The goal is
 to validate that the features are useful, not to win a Kaggle competition.
@@ -301,11 +310,11 @@ If any of these is violated, stop and fix before continuing.
 Phase 0 — Environment & Setup       [ ] NOT STARTED
 Phase 1 — Data Ingestion            [x] COMPLETE
 Phase 2 — Diagnostic EDA            [ ] NOT STARTED
-Phase 3 — Time Series Preprocessing [ ] IN PROGRESS
+Phase 3 — Time Series Preprocessing [x] COMPLETE
 Phase 4 — NLP Preprocessing         [ ] IN PROGRESS
-Phase 5 — Integration & Validation  [ ] NOT STARTED
-Phase 6 — Baseline & Polish         [ ] NOT STARTED
+Phase 5 — Integration & Validation  [x] COMPLETE
+Phase 6 — Baseline & Polish         [ ] IN PROGRESS
 ```
 
-_Last updated: 2026-03-10_
+_Last updated: 2026-03-12_
 _Updated by: GitHub Copilot_

@@ -89,6 +89,11 @@ features:
   # Drop features with more than this % missing after join
   max_missing_pct: 0.5
 
+# ── Baseline Modeling (Phase 6) ─────────────────────────────────────────────
+modeling:
+  random_state: 42
+  max_train_rows: 250000
+
 # ── Diagnostic EDA ───────────────────────────────────────────────────────────
 eda:
   # ydata-profiling can be memory-intensive on full data; sample deterministically if needed.

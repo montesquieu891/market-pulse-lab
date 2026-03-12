@@ -1,0 +1,47 @@
+name: market-pulse-lab
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.10
+  - pip
+  - jupyterlab
+  - ipykernel
+
+  # Core data
+  - pandas>=2.0
+  - numpy
+  - pyarrow
+  - duckdb
+
+  # ML / preprocessing
+  - scikit-learn>=1.4
+
+  # Visualization
+  - matplotlib
+  - seaborn
+  - plotly
+
+  # Dev tools
+  - black
+  - isort
+  - pytest
+  - pytest-cov
+
+  - pip:
+    - polars
+    - statsmodels
+    - spacy
+    - transformers
+    - sentence-transformers
+    - torch               # CPU version — FinBERT inference
+    - nltk
+    - ydata-profiling
+    - great-expectations
+    - pydantic>=2.0
+    - pandas-datareader   # FRED API
+    - kaggle              # Kaggle API client
+    - python-dotenv
+    - tqdm
+    - xgboost

@@ -1,0 +1,4 @@
+model,feature_set,n_features,train_rows_used,validation_mae,test_mae,status
+XGBoostRegressor_price_plus_sentiment,price_plus_sentiment,33,250000,0.1602995640540117,0.1597641816216894,ok
+LinearRegression_price_plus_sentiment,price_plus_sentiment,33,250000,0.1674502961223491,0.17547488020706478,ok
+LinearRegression_price_only,price_only,25,250000,0.16745186790923935,0.17552368308529775,ok

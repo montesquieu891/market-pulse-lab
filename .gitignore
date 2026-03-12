@@ -1,0 +1,48 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local settings and secrets
+.env
+.env.*
+*.env
+.kaggle/
+kaggle.json
+
+# Data artifacts (raw, interim, external, features)
+datasets/**/*.csv
+datasets/**/*.parquet
+datasets/Data/
+datasets/external/
+datasets/features/
+datasets/interim/
+
+# Model artifacts and caches
+models/**/*.joblib
+models/**/finbert_cache/
+models/**/sbert_cache/
+
+# Generated reports and logs
+reports/**/*.html
+reports/pipeline.log
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
