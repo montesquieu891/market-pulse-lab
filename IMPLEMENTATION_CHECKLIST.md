@@ -265,7 +265,7 @@ portfolio.
 - [x] Feature importance plot saved for top-20 features
 - [x] Results table added to `README.md`
 - [x] `README.md` complete: setup instructions, data sources, design decisions
-- [ ] All notebooks run top-to-bottom on a fresh kernel without errors
+- [x] All notebooks run top-to-bottom on a fresh kernel without errors
 - [x] All `src/` functions have type hints and Google-style docstrings
 - [x] `pytest tests/ -v` passes with no failures
 - [x] `.gitignore` confirms no data files, no model weights, no credentials committed
@@ -279,8 +279,11 @@ A test suite now exists (`tests/test_dates.py`) and tests pass using the project
 Unexpected ETF raw-file additions were reviewed (`dirt.us.txt`, `div.us.txt`, `djci.us.txt`):
 headers valid, parse errors 0, dates sorted, duplicates 0, OHLC consistency OK, no invalid close/volume values.
 No pipeline impact was detected because price ingestion is configured to read `datasets/Data/Stocks/`.
-Remaining items are release/publication steps: fresh-kernel notebook reruns and setting the GitHub repository
-to public.
+Fresh-kernel notebook validation completed via `jupyter nbconvert --execute` over
+`notebooks/01_diagnostic_eda.ipynb`, `notebooks/02_price_timeseries_preprocessing.ipynb`,
+`notebooks/03_news_nlp_preprocessing.ipynb`, `notebooks/05_integration_validation.ipynb`,
+and `notebooks/06_modeling_baseline.ipynb` (executed copies written to `C:\\Temp\\mpl_nbcheck`).
+Remaining release/publication item: set the GitHub repository to public.
 
 **Agent note:** The modeling notebook is intentionally minimal. The goal is
 to validate that the features are useful, not to win a Kaggle competition.
